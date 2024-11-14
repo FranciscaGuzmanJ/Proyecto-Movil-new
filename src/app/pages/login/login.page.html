@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Memorix</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-img src="assets\photo\Memorix.png"></ion-img>
+    <ion-card-header>
+      <ion-card-title>Inicio Sesion</ion-card-title>      
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item>
+        <ion-input label="Correo electrónico" labelPlacement="floating" [(ngModel)]="usuario"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Contraseña" labelPlacement="floating" type="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
+      <ion-button expand="block" class="heartbeat" (click)="onLogin()">Iniciar Sesión</ion-button>
+      <ion-button expand="block" [routerLink]="['/registro']">Registro</ion-button>
+      <a [routerLink]="['/rcontra']">Recuperar Contraseña</a>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

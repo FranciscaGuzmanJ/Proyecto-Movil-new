@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-buttons slot="start">
+    <ion-back-button defaulHref="/login"></ion-back-button>
+  </ion-buttons>
+  <ion-toolbar>
+    <ion-title>Recuperar Contraseña</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Recuperar Contraseña</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header style="text-align: center;">
+      <ion-card-title>¿A olvidado su contraseña?</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content style="text-align: center;">
+      Se enviara a tu correo electronico un enlace de recuperacion
+    </ion-card-content>
+    <ion-input label="Correo Electronico" label-placement="floating" fill="outline" placeholder="Enter text" [(ngModel)]="password.correo"></ion-input>
+    <br>
+    <ion-button expand="block" (click)="enviar()">Enviar</ion-button>
+  </ion-card>
+</ion-content>
