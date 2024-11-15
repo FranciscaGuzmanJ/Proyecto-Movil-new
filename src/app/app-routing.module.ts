@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './guards/auth.guard'; // Importa el guard
+
+
 const routes: Routes = [
   {
     path: 'home',
@@ -17,7 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
+    loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'rcontra',
@@ -29,11 +33,13 @@ const routes: Routes = [
   },
   {
     path: 'tab',
-    loadChildren: () => import('./pages/tab/tab.module').then( m => m.TabPageModule)
+    loadChildren: () => import('./pages/tab/tab.module').then( m => m.TabPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'albunes',
-    loadChildren: () => import('./pages/albunes/albunes.module').then( m => m.AlbunesPageModule)
+    loadChildren: () => import('./pages/albunes/albunes.module').then( m => m.AlbunesPageModule),
+    canActivate: [AuthGuard]
   },
 ];
 
