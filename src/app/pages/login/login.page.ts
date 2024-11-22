@@ -15,13 +15,25 @@ export class LoginPage {
 
   async onLogin() {
     try {
+      // Llamamos al método login del servicio de autenticación
       const result = await this.authService.login(this.usuario, this.password);
-      console.log('Login exitoso', result); // Verifica que el login fue exitoso
-      this.router.navigate(['/tab']);
+  
+      // Verifica que el login fue exitoso
+      console.log('Login exitoso', result);
+  
+      // Verificar el token guardado
+      const token = localStorage.getItem('firebaseToken');
+      if (token) {
+        console.log('Token guardado:', token);
+      } else {
+        console.log('No se encontró el token');
+      }
+  
+      // Redirige al usuario a la página de tabs
+      this.router.navigate(['/tabs']);
     } catch (error) {
-      console.error('Error en el login', error); // Para saber si hay algún problema
+      console.error('Error en el login', error);
+      alert('Error en el login. Verifica tus credenciales.');
     }
   }
-  
-
 }
