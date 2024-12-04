@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocalService } from 'src/app/services/local.service';
 
 @Component({
   selector: 'app-menu',
@@ -9,17 +10,16 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MenuPage implements OnInit {
 
-  constructor(private router: Router,  private authService: AuthService) { }
+  constructor(private router: Router,  private localService: LocalService) { }
 
   ngOnInit() {
   }
 
+
   logout() {
-    this.authService.logout().then(() => {
-      this.router.navigate(['/login']);
-    }).catch(error => {
-      console.error('Error al cerrar sesión:', error);
-    });
+    this.localService.CerrarSesion();
+    this.router.navigate(['/login']);
+
   }
 
 }

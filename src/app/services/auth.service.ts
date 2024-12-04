@@ -15,12 +15,8 @@ export class AuthService {
   getCurrentUser() {
     return this.auth.currentUser; // Devuelve el usuario actual
   }
-  
-    async setAuthPersistence() {
-      const auth = getAuth();
-      await setPersistence(auth, browserLocalPersistence);
-    }
-   
+
+
   // Registrar un nuevo usuario
   async register(email: string, password: string) {
     try {
@@ -32,24 +28,13 @@ export class AuthService {
   }
 
   async login(email: string, password: string) {
-    try {
-      await this.setAuthPersistence(); // Asegúrate de configurar la persistencia antes de iniciar sesión
       const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
-      
-      // Obtener el token de Firebase
-      const token = await userCredential.user?.getIdToken();
-  
-      // Guardar el token (aquí lo puedes guardar en el almacenamiento local o donde necesites)
-      if (token) {
-        localStorage.setItem('firebaseToken', token);
-      }
-  
-      return userCredential;
-    } catch (error) {
-      console.log('Error during login:', error);
-      throw error;
+      if (userCredential.user) {
+        return await userCredential.user.getIdToken(); // Obtiene el token de Firebase
+    
+    } 
+    return null;
     }
-  }
 
   async logout() {
     try {
@@ -59,4 +44,5 @@ export class AuthService {
       throw error;
     }
   }
+
 }

@@ -10,15 +10,19 @@
     <ion-card-header>
       <ion-card-title>Inicio Sesion</ion-card-title>      
     </ion-card-header>
-  
+
     <ion-card-content>
+      <form [formGroup]="loginForm">
       <ion-item>
-        <ion-input label="Correo electrónico" labelPlacement="floating" [(ngModel)]="usuario"></ion-input>
+        <ion-input formControlName="usuario" label="Correo" labelPlacement="stacked" placeholder="Correo"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input label="Contraseña" labelPlacement="floating" type="password" [(ngModel)]="password"></ion-input>
+        <ion-input formControlName="password" label="Contraseña" type="password" labelPlacement="stacked" placeholder="Contraseña"></ion-input>
       </ion-item>
-      <ion-button expand="block" class="heartbeat" (click)="onLogin()">Iniciar Sesión</ion-button>
+      </form>
+      <br>
+      <ion-button id = "botonIngresar"class="btn-block" expand="block" (click)="onLogin()">Ingresar</ion-button>
+      <br>
       <ion-button expand="block" [routerLink]="['/registro']">Registro</ion-button>
       <a [routerLink]="['/rcontra']">Recuperar Contraseña</a>
     </ion-card-content>
