@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/compat/auth'; // Ajusta esto si usas otro módulo Firebase
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-rcontra',
@@ -11,10 +13,12 @@ export class RcontraPage implements OnInit {
   password: any = {
     correo: ""
   }
+  email: string = '';
 
   field: string = "";
 
-  constructor(public router: Router, public toastController: ToastController) { }
+  constructor(public router: Router, public toastController: ToastController, private afAuth: AngularFireAuth,
+    private alertController: AlertController) { }
 
   ngOnInit() { }
 
@@ -71,5 +75,38 @@ export class RcontraPage implements OnInit {
 
     await toast.present();
   }
+
+  async sendRecoveryEmail() {
+    try {
+      await this.afAuth.sendPasswordResetEmail(this.email);
+      this.showAlert(
+        'Correo enviado',
+        `Se ha enviado un correo de recuperación a ${this.email}. Por favor, revisa tu bandeja de entrada o spam.`
+      );
+    } catch (error) {
+     
+    }
+  }
+
+  private async showAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
+
+  private getFirebaseErrorMessage(code: string): string {
+    switch (code) {
+      case 'auth/invalid-email':
+        return 'El correo electrónico no es válido.';
+      case 'auth/user-not-found':
+        return 'No se encontró un usuario con ese correo.';
+      default:
+        return 'Ocurrió un error. Inténtalo de nuevo más tarde.';
+    }
+  }
 }
+
 

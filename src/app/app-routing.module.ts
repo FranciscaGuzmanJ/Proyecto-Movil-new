@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './guards/auth.guard'; // Importa el guard
+
+
 const routes: Routes = [
   {
     path: 'home',
@@ -17,7 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'error',
-    loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
+    loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'rcontra',
@@ -28,13 +32,62 @@ const routes: Routes = [
     loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
-    path: 'tab',
-    loadChildren: () => import('./pages/tab/tab.module').then( m => m.TabPageModule)
+    path: 'albunes',
+    loadChildren: () => import('./pages/albunes/albunes.module').then( m => m.AlbunesPageModule),
+    canActivate: [AuthGuard]
   },
   {
-    path: 'albunes',
-    loadChildren: () => import('./pages/albunes/albunes.module').then( m => m.AlbunesPageModule)
+    path: 'subir-contenido',
+    loadChildren: () => import('./pages/subir-contenido/subir-contenido.module').then( m => m.SubirContenidoPageModule),
+    canActivate: [AuthGuard]
   },
+  {
+    path: 'menu',
+    loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'albumes',
+    loadChildren: () => import('./pages/albunes/albunes.module').then( m => m.AlbunesPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'tabs',
+    loadComponent: () => import('./ionic/tabs/tabs.component').then( m => m.TabsComponent),
+    canActivate: [AuthGuard],
+    children:[ 
+      {
+        path: 'subir-contenido',
+        loadChildren: () => import('./pages/subir-contenido/subir-contenido.module').then( m => m.SubirContenidoPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'menu',
+        loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'albumes',
+        loadChildren: () => import('./pages/albunes/albunes.module').then( m => m.AlbunesPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
+      path: '',
+        redirectTo: '/tabs/home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+        canActivate: [AuthGuard]
+    }]  
+  },
+  
 ];
 
 @NgModule({

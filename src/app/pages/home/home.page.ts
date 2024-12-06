@@ -76,6 +76,9 @@ export class HomePage implements OnInit{
         console.error('No se encontró el usuario.');
       }
     }
+    navigateToTabs() {
+      this.router.navigate(['/tabs/home']);
+    }
 
     async obtenerImagenes() {
       const user = this.authService.getCurrentUser();
