@@ -59,6 +59,7 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadComponent: () => import('./ionic/tabs/tabs.component').then( m => m.TabsComponent),
+    canActivate: [AuthGuard],
     children:[ 
       {
         path: 'subir-contenido',

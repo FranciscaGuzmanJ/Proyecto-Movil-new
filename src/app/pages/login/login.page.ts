@@ -23,8 +23,6 @@ export class LoginPage {
     public formBuilder: FormBuilder,
     private toastController: ToastController,  private router: Router){} // Inyecta Router
 
-
-
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       usuario: "",
